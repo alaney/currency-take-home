@@ -1,4 +1,4 @@
-import CurrencyList from "@/components/CurrencyList/CurrencyList";
+import CurrencyListContainer from "@/components/CurrencyListContainer/CurrencyListContainer";
 import Navbar from "@/components/Navbar/Navbar";
 import useAppStore from "@/useAppStore";
 import Head from "next/head";
@@ -26,7 +26,7 @@ export default function Home() {
         <Navbar />
       </nav>
       <main>
-        <CurrencyList />
+        <CurrencyListContainer />
       </main>
     </>
   );
