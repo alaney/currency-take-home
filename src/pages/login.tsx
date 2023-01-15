@@ -1,8 +1,9 @@
+import LoginBox from "@/components/LoginBox/LoginBox.css";
 import useAppStore from "@/useAppStore";
 import { Box, Button, Container, FormControl, FormLabel, Heading, Input } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
 const Login: React.FC = () => {
   const router = useRouter();
@@ -12,9 +13,17 @@ const Login: React.FC = () => {
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     store.setUsername(username);
-    store.logIn();
+    store.login();
     router.push("/");
   };
+
+  useEffect(() => {
+    if (store.loggedIn) {
+      router.push("/");
+    }
+  });
+
+  if (store.loggedIn) return null;
 
   return (
     <>
@@ -23,7 +32,7 @@ const Login: React.FC = () => {
       </Head>
       <main>
         <Container centerContent={true} p={8}>
-          <Box w="100%" p={4} borderWidth="1px" borderRadius="lg">
+          <LoginBox>
             <Heading mb={4}>Log In</Heading>
             <form onSubmit={submit}>
               <FormControl isRequired>
@@ -38,7 +47,7 @@ const Login: React.FC = () => {
                 Login
               </Button>
             </form>
-          </Box>
+          </LoginBox>
         </Container>
       </main>
     </>

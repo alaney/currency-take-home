@@ -2,15 +2,17 @@ import { create } from "zustand";
 
 interface AppState {
   loggedIn: boolean;
-  logIn: () => void;
+  login: () => void;
+  logout: () => void;
   username: string;
   setUsername: (username: string) => void;
 }
 
 const useAppStore = create<AppState>((set) => ({
-  loggedIn: false,
-  logIn: () => set(() => ({ loggedIn: true })),
-  username: "",
+  loggedIn: true,
+  login: () => set(() => ({ loggedIn: true })),
+  logout: () => set(() => ({ loggedIn: false })),
+  username: "Aaron",
   setUsername: (username: string) => set(() => ({ username })),
 }));
 

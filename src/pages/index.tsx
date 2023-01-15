@@ -1,5 +1,5 @@
+import Navbar from "@/components/Navbar/Navbar";
 import useAppStore from "@/useAppStore";
-import { Button } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -12,7 +12,7 @@ export default function Home() {
     if (!store.loggedIn) {
       router.push("/login");
     }
-  });
+  }, [store.loggedIn, router]);
 
   if (!store.loggedIn) return null;
 
@@ -21,9 +21,10 @@ export default function Home() {
       <Head>
         <title>Currency Take Home</title>
       </Head>
-      <main>
-        <div>{`Hello ${store.username}`}</div>
-      </main>
+      <nav>
+        <Navbar />
+      </nav>
+      <main></main>
     </>
   );
 }
