@@ -1,4 +1,5 @@
 import useAppStore from "@/useAppStore";
+import { Button } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -13,19 +14,16 @@ export default function Home() {
     }
   });
 
-  if (store.loggedIn) {
-    return (
-      <>
-        <Head>
-          <title>Currency Take Home</title>
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-        </Head>
-        <main>
-          <div>main</div>
-        </main>
-      </>
-    );
-  } else {
-    return null;
-  }
+  if (!store.loggedIn) return null;
+
+  return (
+    <>
+      <Head>
+        <title>Currency Take Home</title>
+      </Head>
+      <main>
+        <div>{`Hello ${store.username}`}</div>
+      </main>
+    </>
+  );
 }
