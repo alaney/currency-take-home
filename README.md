@@ -18,6 +18,12 @@ After the setup is finished, run `npm run dev` to launch the app in development 
 
 I decided to create a `/login` route separate from the main app. When the user logs in, the app store is updated and the Next Router is used to navigate to the root page. I could have used a single route/page and displayed the login form based on state, however, I was unfamiliar with Next.js and I was curious as to how routing and pages work in the framework.  
 
-## 
+## Styles
+
+Styled Components seem useful in some cases but not in others. I chose to use Chakra's styling system when it made sense e.g., flex properties on the `Flex` component. I used Styled Components mainly for custom components.
+
+## Fetching Currencies
+
+I 
 
 

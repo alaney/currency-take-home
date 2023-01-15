@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { Currency } from "./types";
 
 interface AppState {
   loggedIn: boolean;
@@ -6,6 +7,8 @@ interface AppState {
   logout: () => void;
   username: string;
   setUsername: (username: string) => void;
+  currencies: Currency[];
+  setCurrencies: (currencies: Currency[]) => void;
 }
 
 const useAppStore = create<AppState>((set) => ({
@@ -14,6 +17,8 @@ const useAppStore = create<AppState>((set) => ({
   logout: () => set(() => ({ loggedIn: false })),
   username: "Aaron",
   setUsername: (username: string) => set(() => ({ username })),
+  currencies: [],
+  setCurrencies: (currencies: Currency[]) => set(() => ({ currencies })),
 }));
 
 export default useAppStore;

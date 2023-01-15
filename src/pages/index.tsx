@@ -1,3 +1,4 @@
+import CurrencyList from "@/components/CurrencyList/CurrencyList";
 import Navbar from "@/components/Navbar/Navbar";
 import useAppStore from "@/useAppStore";
 import Head from "next/head";
@@ -24,7 +25,9 @@ export default function Home() {
       <nav>
         <Navbar />
       </nav>
-      <main></main>
+      <main>
+        <CurrencyList />
+      </main>
     </>
   );
 }
