@@ -27,7 +27,7 @@ export default function Home() {
         <Navbar />
       </nav>
       <main>
-        <Container>
+        <Container w={500}>
           <CurrencyListContainer />
         </Container>
       </main>

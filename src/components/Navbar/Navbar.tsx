@@ -13,7 +13,7 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
   return (
     <StyledNavbarContainer>
       <Text ml={8}>Currency Take Home Project</Text>
-      <CurrencyFilter />
+      <CurrencyFilter w={500} />
       <Flex align="center" justify="space-between" mr={8}>
         <Text mr={8}>{`Hello, ${store.username}`}</Text>
         <LogoutButton />

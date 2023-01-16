@@ -24,6 +24,8 @@ Styled Components seem useful in some cases but not in others. I chose to use Ch
 
 ## Fetching Currencies
 
-I 
+Since the currencies are not used by other components I didn't put them on the global state. They are filtered and paged by the `CurrencyListContainer` component. 
+
+## 
 
 

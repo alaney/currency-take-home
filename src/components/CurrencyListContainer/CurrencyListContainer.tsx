@@ -1,8 +1,8 @@
 import { Currency, CurrencyResponse } from "@/types";
 import useAppStore from "@/useAppStore";
-import { Button, filter } from "@chakra-ui/react";
+import { Button } from "@chakra-ui/react";
 import React, { PropsWithChildren, useEffect, useState } from "react";
-import CurrencyList from "./CurrencyList";
+import StyledCurrencyList from "../CurrencyList/CurrencyList.css";
 
 const CurrencyListContainer: React.FC<PropsWithChildren> = () => {
   const pageSize = 20;
@@ -30,6 +30,7 @@ const CurrencyListContainer: React.FC<PropsWithChildren> = () => {
     const start = (page - 1) * pageSize;
     const end = start + pageSize;
     const newPageOfCurrencies = filteredCurrencies.slice(start, end);
+    console.log(newPageOfCurrencies.length);
     setPageOfCurrencies(newPageOfCurrencies);
   }, [page, filteredCurrencies]);
 
@@ -63,7 +64,7 @@ const CurrencyListContainer: React.FC<PropsWithChildren> = () => {
 
   return (
     <>
-      <CurrencyList currencies={pageOfCurrencies} />
+      <StyledCurrencyList currencies={pageOfCurrencies} />
       <div>
         <Button mr={4} onClick={onPrevClick} disabled={page === 1}>
           Prev

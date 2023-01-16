@@ -1,15 +1,17 @@
 import useAppStore from "@/useAppStore";
-import { Input } from "@chakra-ui/react";
+import { Input, InputProps } from "@chakra-ui/react";
 import React from "react";
 
-const CurrencyFilter: React.FC = () => {
+interface CurrencyFilterProps extends InputProps {}
+
+const CurrencyFilter: React.FC<CurrencyFilterProps> = (props) => {
   const store = useAppStore();
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     store.setFilter(e.target.value);
   };
 
-  return <Input onChange={onChange} />;
+  return <Input onChange={onChange} {...props} />;
 };
 
 export default CurrencyFilter;
