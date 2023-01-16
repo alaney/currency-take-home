@@ -65,11 +65,11 @@ const CurrencyListContainer: React.FC<PropsWithChildren> = () => {
     <>
       <CurrencyList currencies={pageOfCurrencies} />
       <div>
-        <Button onClick={onPrevClick} disabled={page === 1}>
+        <Button mr={4} onClick={onPrevClick} disabled={page === 1}>
           Prev
         </Button>
-        {page}
-        <Button onClick={onNextClick} disabled={page * pageSize >= filteredCurrencies.length}>
+        <span>{`Page ${page} of ${Math.ceil(filteredCurrencies.length / pageSize)}`}</span>
+        <Button ml={4} onClick={onNextClick} disabled={page * pageSize >= filteredCurrencies.length}>
           Next
         </Button>
       </div>
