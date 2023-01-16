@@ -33,7 +33,9 @@ const Login: React.FC = () => {
       <main>
         <Container centerContent={true} p={8}>
           <LoginBox>
-            <Heading mb={4}>Log In</Heading>
+            <Heading as="h1" mb={4}>
+              Login
+            </Heading>
             <form onSubmit={submit}>
               <FormControl isRequired>
                 <FormLabel>Username</FormLabel>

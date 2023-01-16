@@ -9,7 +9,7 @@ interface CurrencyListProps {
 
 const CurrencyList: React.FC<CurrencyListProps> = ({ currencies, className }) => {
   return (
-    <div className={className}>
+    <div data-cy="currency-list" className={className}>
       {currencies.map((c) => (
         <StyledCurrencyListItem currency={c} key={c.code} />
       ))}

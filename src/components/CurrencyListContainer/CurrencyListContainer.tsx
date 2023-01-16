@@ -64,7 +64,7 @@ const CurrencyListContainer: React.FC<PropsWithChildren> = () => {
   return (
     <>
       <StyledCurrencyList currencies={pageOfCurrencies} />
-      <div>
+      <div data-cy="pager">
         <Button mr={4} onClick={onPrevClick} disabled={page === 1}>
           Prev
         </Button>

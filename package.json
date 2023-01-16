@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cypress": "cypress open",
+    "test": "start-server-and-test start http://localhost:3000 cypress"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.4.8",
@@ -28,6 +30,8 @@
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.26",
-    "prettier": "^2.8.3"
+    "cypress": "^12.3.0",
+    "prettier": "^2.8.3",
+    "start-server-and-test": "^1.15.2"
   }
 }

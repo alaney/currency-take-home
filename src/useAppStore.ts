@@ -12,7 +12,7 @@ interface AppState {
 }
 
 const useAppStore = create<AppState>((set) => ({
-  loggedIn: true,
+  loggedIn: false,
   login: () => set(() => ({ loggedIn: true })),
   logout: () => set(() => ({ loggedIn: false })),
   username: "Aaron",
