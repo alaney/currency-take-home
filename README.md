@@ -24,8 +24,11 @@ Styled Components seem useful in some cases but not in others. I chose to use Ch
 
 ## Fetching Currencies
 
-Since the currencies are not used by other components I didn't put them on the global state. They are filtered and paged by the `CurrencyListContainer` component. 
+Since the currencies are not used by other components I didn't put them on the global state. The filtered and paged results are managed by the `CurrencyListContainer` component's state. 
 
-## 
+## Testing
+
+I decided to use Cypress to run e2e tests. I prefer e2e test rather than unit tests since this is how users will interact with the application. Ensuring the application works from a user perspective is a high priority. I generally consider unit tests more beneficially when testing complex business logic. 
+
 
 
