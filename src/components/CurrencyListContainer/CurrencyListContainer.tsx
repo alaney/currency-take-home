@@ -30,7 +30,6 @@ const CurrencyListContainer: React.FC<PropsWithChildren> = () => {
     const start = (page - 1) * pageSize;
     const end = start + pageSize;
     const newPageOfCurrencies = filteredCurrencies.slice(start, end);
-    console.log(newPageOfCurrencies.length);
     setPageOfCurrencies(newPageOfCurrencies);
   }, [page, filteredCurrencies]);
 
