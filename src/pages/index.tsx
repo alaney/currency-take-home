@@ -1,6 +1,7 @@
 import CurrencyListContainer from "@/components/CurrencyListContainer/CurrencyListContainer";
 import Navbar from "@/components/Navbar/Navbar";
 import useAppStore from "@/useAppStore";
+import { Container } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -26,7 +27,9 @@ export default function Home() {
         <Navbar />
       </nav>
       <main>
-        <CurrencyListContainer />
+        <Container>
+          <CurrencyListContainer />
+        </Container>
       </main>
     </>
   );
