@@ -15,7 +15,9 @@ const CurrencyListContainer: React.FC<PropsWithChildren> = () => {
   useEffect(() => {
     if (store.filter) {
       const filteredCurrencies = currencies.filter(
-        (c) => c.code.includes(store.filter) || c.name.includes(store.filter)
+        (c) =>
+          c.code.toLowerCase().includes(store.filter.toLowerCase()) ||
+          c.name.toLowerCase().includes(store.filter.toLowerCase())
       );
       setFilteredCurrencies(filteredCurrencies);
       setPage(1);
