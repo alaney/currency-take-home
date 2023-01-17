@@ -6,7 +6,6 @@ export function useCurrencyCodeQueryParameters() {
   const [currencyCodeQueryParam2, setCurrencyCodeQueryParam2] = useState("");
 
   useEffect(() => {
-    console.log(router.query);
     if (router.query.c1 && router.query.c2) {
       const c1 = router.query.c1;
       const c2 = router.query.c2;
