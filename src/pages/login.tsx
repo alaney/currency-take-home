@@ -14,6 +14,7 @@ const Login: React.FC = () => {
     e.preventDefault();
     store.setUsername(username);
     store.login();
+    localStorage.setItem("username", username);
     router.push("/");
   };
 

@@ -1,15 +1,18 @@
 import { Currency, CurrencyResponse } from "@/types";
 import useAppStore from "@/useAppStore";
-import { Button } from "@chakra-ui/react";
+import { Button, Tooltip } from "@chakra-ui/react";
+import router from "next/router";
 import React, { PropsWithChildren, useEffect, useState } from "react";
 import StyledCurrencyList from "../CurrencyList/CurrencyList.css";
 import SelectedCurrencies from "../SelectedCurrencies/SelectedCurrencies";
-import { fetchCurrencies } from "./utils";
 
-const CurrencyListContainer: React.FC<PropsWithChildren> = () => {
+interface CurrencyListContainerProps {
+  currencies: Currency[];
+}
+
+const CurrencyListContainer: React.FC<PropsWithChildren<CurrencyListContainerProps>> = ({ currencies }) => {
   const pageSize = 20;
   const store = useAppStore();
-  const [currencies, setCurrencies] = useState<Currency[]>([]);
   const [filteredCurrencies, setFilteredCurrencies] = useState<Currency[]>([]);
   const [page, setPage] = useState(1);
   const [pageOfCurrencies, setPageOfCurrencies] = useState<Currency[]>([]);
@@ -31,22 +34,25 @@ const CurrencyListContainer: React.FC<PropsWithChildren> = () => {
   }, [store.filter, currencies]);
 
   useEffect(() => {
+    if (router.query["c1"] && router.query["c2"]) {
+      const c1 = router.query["c1"];
+      const c2 = router.query["c2"];
+      const currency1 = currencies.find((c) => c.code === c1);
+      const currency2 = currencies.find((c) => c.code === c2);
+
+      if (currency1 && currency2) {
+        setSelectedCurrency1(currency1);
+        setSelectedCurrency2(currency2);
+      }
+    }
+  }, [currencies]);
+
+  useEffect(() => {
     const start = (page - 1) * pageSize;
     const end = start + pageSize;
     const newPageOfCurrencies = filteredCurrencies.slice(start, end);
     setPageOfCurrencies(newPageOfCurrencies);
   }, [page, filteredCurrencies]);
-
-  // Fetch and place currencies on state upon first render.
-  useEffect(() => {
-    const setupCurrencies = async (): Promise<void> => {
-      const currencies = await fetchCurrencies();
-      setCurrencies(currencies);
-      setFilteredCurrencies(currencies);
-    };
-
-    setupCurrencies();
-  }, []);
 
   const onPrevClick = () => {
     setPage(page - 1);
@@ -66,6 +72,13 @@ const CurrencyListContainer: React.FC<PropsWithChildren> = () => {
     }
   };
 
+  const compareCurrencies = () => {
+    if (!selectedCurrency1 || !selectedCurrency2) {
+      return;
+    }
+    router.push(`?c1=${selectedCurrency1.code}&c2=${selectedCurrency2.code}`, undefined, { shallow: true });
+  };
+
   return (
     <>
       <SelectedCurrencies selectedCurrency1={selectedCurrency1} selectedCurrency2={selectedCurrency2} />
@@ -83,7 +96,11 @@ const CurrencyListContainer: React.FC<PropsWithChildren> = () => {
         <Button ml={4} onClick={onNextClick} disabled={page * pageSize >= filteredCurrencies.length}>
           Next
         </Button>
-        <Button>Compare</Button>
+        <Tooltip isDisabled={!!(selectedCurrency1 && selectedCurrency2)} label="Select 2 currencies to compare">
+          <Button disabled={!selectedCurrency1 || !selectedCurrency2} onClick={compareCurrencies}>
+            Compare
+          </Button>
+        </Tooltip>
       </div>
     </>
   );

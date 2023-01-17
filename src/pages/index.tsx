@@ -1,4 +1,4 @@
-import CurrencyListContainer from "@/components/CurrencyListContainer/CurrencyListContainer";
+import CurrencyContainer from "@/components/CurrencyContainer/CurrencyContainer";
 import Navbar from "@/components/Navbar/Navbar";
 import useAppStore from "@/useAppStore";
 import { Container } from "@chakra-ui/react";
@@ -12,9 +12,15 @@ export default function Home() {
 
   useEffect(() => {
     if (!store.loggedIn) {
-      router.push("/login");
+      const username = localStorage.getItem("username");
+      if (username) {
+        store.login();
+        store.setUsername(username);
+      } else {
+        router.push("/login");
+      }
     }
-  }, [store.loggedIn, router]);
+  }, [store.loggedIn, router, store]);
 
   if (!store.loggedIn) return null;
 
@@ -28,7 +34,7 @@ export default function Home() {
       </nav>
       <main>
         <Container w={500}>
-          <CurrencyListContainer />
+          <CurrencyContainer />
         </Container>
       </main>
     </>
