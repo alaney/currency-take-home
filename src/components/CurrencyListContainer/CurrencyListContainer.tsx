@@ -3,6 +3,8 @@ import useAppStore from "@/useAppStore";
 import { Button } from "@chakra-ui/react";
 import React, { PropsWithChildren, useEffect, useState } from "react";
 import StyledCurrencyList from "../CurrencyList/CurrencyList.css";
+import SelectedCurrencies from "../SelectedCurrencies/SelectedCurrencies";
+import { fetchCurrencies } from "./utils";
 
 const CurrencyListContainer: React.FC<PropsWithChildren> = () => {
   const pageSize = 20;
@@ -11,6 +13,8 @@ const CurrencyListContainer: React.FC<PropsWithChildren> = () => {
   const [filteredCurrencies, setFilteredCurrencies] = useState<Currency[]>([]);
   const [page, setPage] = useState(1);
   const [pageOfCurrencies, setPageOfCurrencies] = useState<Currency[]>([]);
+  const [selectedCurrency1, setSelectedCurrency1] = useState<Currency | null>(null);
+  const [selectedCurrency2, setSelectedCurrency2] = useState<Currency | null>(null);
 
   useEffect(() => {
     if (store.filter) {
@@ -33,24 +37,15 @@ const CurrencyListContainer: React.FC<PropsWithChildren> = () => {
     setPageOfCurrencies(newPageOfCurrencies);
   }, [page, filteredCurrencies]);
 
+  // Fetch and place currencies on state upon first render.
   useEffect(() => {
-    const fetchCurrencies = async (): Promise<void> => {
-      const response = await fetch("https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.min.json");
-      const currencyResp: CurrencyResponse = await response.json();
-      const currencies: Currency[] = [];
-
-      for (const key in currencyResp) {
-        if (Object.prototype.hasOwnProperty.call(currencyResp, key)) {
-          const name = currencyResp[key];
-          currencies.push({ name, code: key });
-        }
-      }
-
+    const setupCurrencies = async (): Promise<void> => {
+      const currencies = await fetchCurrencies();
       setCurrencies(currencies);
       setFilteredCurrencies(currencies);
     };
 
-    fetchCurrencies();
+    setupCurrencies();
   }, []);
 
   const onPrevClick = () => {
@@ -61,9 +56,25 @@ const CurrencyListContainer: React.FC<PropsWithChildren> = () => {
     setPage(page + 1);
   };
 
+  const onCurrencyClicked = (currency: Currency) => {
+    if (selectedCurrency1 && selectedCurrency2) {
+      // no op
+    } else if (!selectedCurrency1) {
+      setSelectedCurrency1(currency);
+    } else {
+      setSelectedCurrency2(currency);
+    }
+  };
+
   return (
     <>
-      <StyledCurrencyList currencies={pageOfCurrencies} />
+      <SelectedCurrencies selectedCurrency1={selectedCurrency1} selectedCurrency2={selectedCurrency2} />
+      <StyledCurrencyList
+        currencies={pageOfCurrencies}
+        onCurrencyClicked={onCurrencyClicked}
+        selectedCurrency1={selectedCurrency1}
+        selectedCurrency2={selectedCurrency2}
+      />
       <div data-cy="pager">
         <Button mr={4} onClick={onPrevClick} disabled={page === 1}>
           Prev
@@ -72,6 +83,7 @@ const CurrencyListContainer: React.FC<PropsWithChildren> = () => {
         <Button ml={4} onClick={onNextClick} disabled={page * pageSize >= filteredCurrencies.length}>
           Next
         </Button>
+        <Button>Compare</Button>
       </div>
     </>
   );

@@ -5,11 +5,13 @@ import { Text } from "@chakra-ui/react";
 interface CurrencyListItemProps {
   currency: Currency;
   className?: string;
+  onClick: (currency: Currency) => void;
+  selected: boolean;
 }
 
-const CurrencyListItem: React.FC<CurrencyListItemProps> = ({ currency, className }) => {
+const CurrencyListItem: React.FC<CurrencyListItemProps> = ({ currency, className, onClick, selected }) => {
   return (
-    <div className={className}>
+    <div className={className} onClick={() => onClick(currency)}>
       <Text>{currency.name || currency.code}</Text>
     </div>
   );

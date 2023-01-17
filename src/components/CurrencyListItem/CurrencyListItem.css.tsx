@@ -7,6 +7,8 @@ const StyledCurrencyListItem = styled(CurrencyListItem)`
   &:hover {
     background-color: lightblue;
   }
+  background-color: ${(props) => (props.selected ? "blue" : "white")};
+  color: ${(props) => (props.selected ? "white" : "black")};
 `;
 
 export default StyledCurrencyListItem;
