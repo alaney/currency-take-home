@@ -12,6 +12,8 @@ From the root of the project run `npm ci` to install dependencies.
 
 After the setup is finished, run `npm run dev` to launch the app in development mode. Visit http://localhost:3000 to view the application.
 
+To open the Cypress test runner you can run `npm test`. This executes a production build for Cypress to test against. Alternatively, you can run `npm run cypress` to run Cypress tests against the development server. You must have the dev server running for `npm run cypress` to work.
+
 # Design Decisions
 
 ## Login

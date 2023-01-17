@@ -1,5 +1,5 @@
 import useAppStore from "@/useAppStore";
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Show, Text } from "@chakra-ui/react";
 import React from "react";
 import CurrencyFilter from "../CurrencyFilter/CurrencyFilter";
 import LogoutButton from "../LogoutButton/LogoutButton";
@@ -12,12 +12,16 @@ const Navbar: React.FC<NavbarProps> = ({}) => {
 
   return (
     <StyledNavbarContainer>
-      <Text ml={8}>Currency Take Home Project</Text>
-      <CurrencyFilter w={500} />
-      <Flex align="center" justify="space-between" mr={8}>
-        <Text data-cy="user-greeting" mr={8}>{`Hello, ${store.username}`}</Text>
-        <LogoutButton />
-      </Flex>
+      <Show above="lg">
+        <Text ml={8}>Currency Take Home Project</Text>
+      </Show>
+      <CurrencyFilter w={500} ml={2} mr={2} />
+      <Show above="lg">
+        <Flex align="center" justify="space-between" mr={8}>
+          <Text data-cy="user-greeting" mr={8}>{`Hello, ${store.username}`}</Text>
+          <LogoutButton />
+        </Flex>
+      </Show>
     </StyledNavbarContainer>
   );
 };
