@@ -1,4 +1,5 @@
 import { Currency } from "@/types";
+import { Heading } from "@chakra-ui/react";
 import React from "react";
 import StyledCurrencyListItem from "../CurrencyListItem/CurrencyListItem.css";
 
@@ -18,16 +19,22 @@ const CurrencyList: React.FC<CurrencyListProps> = ({
   selectedCurrency2,
 }) => {
   return (
-    <div data-cy="currency-list" className={className}>
-      {currencies.map((c) => (
-        <StyledCurrencyListItem
-          currency={c}
-          key={c.code}
-          onClick={onCurrencyClicked}
-          selected={c.code === selectedCurrency1?.code || c.code === selectedCurrency2?.code}
-        />
-      ))}
-    </div>
+    <>
+      <Heading as="h3" size="md" mt={2}>
+        Currencies
+      </Heading>
+      <hr />
+      <div data-cy="currency-list" className={className}>
+        {currencies.map((c) => (
+          <StyledCurrencyListItem
+            currency={c}
+            key={c.code}
+            onClick={onCurrencyClicked}
+            selected={c.code === selectedCurrency1?.code || c.code === selectedCurrency2?.code}
+          />
+        ))}
+      </div>
+    </>
   );
 };
 

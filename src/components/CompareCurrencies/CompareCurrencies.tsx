@@ -1,6 +1,18 @@
 import { Currency } from "@/types";
 import React, { useEffect, useState } from "react";
-import { Button, Text, Tooltip } from "@chakra-ui/react";
+import {
+  Button,
+  Center,
+  Container,
+  Flex,
+  Stat,
+  Text,
+  StatGroup,
+  StatLabel,
+  StatNumber,
+  Tooltip,
+  Box,
+} from "@chakra-ui/react";
 import router from "next/router";
 import { useCurrencyCodeQueryParameters } from "@/hooks/useCurrencyCodeQueryParameter";
 
@@ -43,17 +55,38 @@ const CompareCurrencies: React.FC<SelectedCurrenciesProps> = ({ selectedCurrency
   };
 
   return (
-    <div>
-      <Text>1</Text>
-      <Text>{selectedCurrency1?.code || "Select a currency"}</Text>
-      <Text>{currencyValue}</Text>
-      <Text>{selectedCurrency2?.code || "Select a currency"}</Text>
-      <Tooltip isDisabled={!!(selectedCurrency1 && selectedCurrency2)} label="Select 2 currencies to compare">
-        <Button disabled={!selectedCurrency1 || !selectedCurrency2} onClick={compareCurrencies}>
-          Compare
-        </Button>
-      </Tooltip>
-    </div>
+    <Container w="100%">
+      <Box bg="tomato" w="100%" p={4} color="white">
+        {!selectedCurrency1 && !selectedCurrency2 ? (
+          <Text>Start selecting currencies to compare...</Text>
+        ) : (
+          <Flex>
+            <StatGroup flexGrow={1}>
+              <Stat>
+                <StatLabel>{selectedCurrency1?.code.toUpperCase() || ""}</StatLabel>
+                <StatNumber>{currencyValue ? "1" : ""}</StatNumber>
+              </Stat>
+              <Stat>
+                <StatLabel>{selectedCurrency2?.code.toUpperCase() || "Select another"}</StatLabel>
+                <StatNumber>{currencyValue || ""}</StatNumber>
+              </Stat>
+            </StatGroup>
+            <Center flexBasis="50">
+              <Tooltip isDisabled={!!(selectedCurrency1 && selectedCurrency2)} label="Select 2 currencies to compare">
+                <Button
+                  colorScheme="teal"
+                  size="sm"
+                  disabled={!selectedCurrency1 || !selectedCurrency2}
+                  onClick={compareCurrencies}
+                >
+                  Compare
+                </Button>
+              </Tooltip>
+            </Center>
+          </Flex>
+        )}
+      </Box>
+    </Container>
   );
 };
 
