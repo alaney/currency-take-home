@@ -28,7 +28,13 @@ Since the currencies are not used by other components I didn't put them on the g
 
 ## Selecting Currencies
 
-Initially I used an array to hold the selected currencies. However, this made the code a little more complex than it was worth. I decided since we're only ever selecting two currencies that it was acceptable to have a dedicated state variable to hold each selection i.e., `selectedCurrency1` and `selectedCurrency2`.
+Initially I used an array to hold the selected currencies. However, this made the code a little more complex than I wanted. I decided since we're only ever selecting two currencies that it was acceptable to have a dedicated state variable to hold each selection i.e., `selectedCurrency1` and `selectedCurrency2`. These selected values live on the `CurrencyListContainer` state and are passed to the children to show the comparison and to change the styles of the selected items.
+
+For testing I needed a way to clear the selected currencies so I created a button. After using it quite a bit I decided it was a nice feature and added it as an icon button at the top of the list.
+
+## Updating the URL
+
+The URL updates when the "Compare" button is clicked. I also wanted to be able to "link" to a comparison with the URL. If you navigate to the app with they query parameters populated (`/?c1=usd&c2=cad`), the UI will display the currency comparison and select the appropriate list items.
 
 ## Testing
 
