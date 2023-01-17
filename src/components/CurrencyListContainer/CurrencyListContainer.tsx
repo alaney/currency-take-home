@@ -4,7 +4,8 @@ import { Button, Tooltip } from "@chakra-ui/react";
 import router from "next/router";
 import React, { PropsWithChildren, useEffect, useState } from "react";
 import StyledCurrencyList from "../CurrencyList/CurrencyList.css";
-import SelectedCurrencies from "../SelectedCurrencies/SelectedCurrencies";
+import CompareCurrencies from "../CompareCurrencies/CompareCurrencies";
+import { useCurrencyCodeQueryParameters } from "@/hooks/useCurrencyCodeQueryParameter";
 
 interface CurrencyListContainerProps {
   currencies: Currency[];
@@ -18,6 +19,7 @@ const CurrencyListContainer: React.FC<PropsWithChildren<CurrencyListContainerPro
   const [pageOfCurrencies, setPageOfCurrencies] = useState<Currency[]>([]);
   const [selectedCurrency1, setSelectedCurrency1] = useState<Currency | null>(null);
   const [selectedCurrency2, setSelectedCurrency2] = useState<Currency | null>(null);
+  const { currencyCodeQueryParam1, currencyCodeQueryParam2 } = useCurrencyCodeQueryParameters();
 
   useEffect(() => {
     if (store.filter) {
@@ -34,18 +36,16 @@ const CurrencyListContainer: React.FC<PropsWithChildren<CurrencyListContainerPro
   }, [store.filter, currencies]);
 
   useEffect(() => {
-    if (router.query["c1"] && router.query["c2"]) {
-      const c1 = router.query["c1"];
-      const c2 = router.query["c2"];
-      const currency1 = currencies.find((c) => c.code === c1);
-      const currency2 = currencies.find((c) => c.code === c2);
+    if (currencyCodeQueryParam1 && currencyCodeQueryParam2) {
+      const currency1 = currencies.find((c) => c.code === currencyCodeQueryParam1);
+      const currency2 = currencies.find((c) => c.code === currencyCodeQueryParam2);
 
       if (currency1 && currency2) {
         setSelectedCurrency1(currency1);
         setSelectedCurrency2(currency2);
       }
     }
-  }, [currencies]);
+  }, [currencies, currencyCodeQueryParam1, currencyCodeQueryParam2]);
 
   useEffect(() => {
     const start = (page - 1) * pageSize;
@@ -72,16 +72,9 @@ const CurrencyListContainer: React.FC<PropsWithChildren<CurrencyListContainerPro
     }
   };
 
-  const compareCurrencies = () => {
-    if (!selectedCurrency1 || !selectedCurrency2) {
-      return;
-    }
-    router.push(`?c1=${selectedCurrency1.code}&c2=${selectedCurrency2.code}`, undefined, { shallow: true });
-  };
-
   return (
     <>
-      <SelectedCurrencies selectedCurrency1={selectedCurrency1} selectedCurrency2={selectedCurrency2} />
+      <CompareCurrencies selectedCurrency1={selectedCurrency1} selectedCurrency2={selectedCurrency2} />
       <StyledCurrencyList
         currencies={pageOfCurrencies}
         onCurrencyClicked={onCurrencyClicked}
@@ -96,11 +89,6 @@ const CurrencyListContainer: React.FC<PropsWithChildren<CurrencyListContainerPro
         <Button ml={4} onClick={onNextClick} disabled={page * pageSize >= filteredCurrencies.length}>
           Next
         </Button>
-        <Tooltip isDisabled={!!(selectedCurrency1 && selectedCurrency2)} label="Select 2 currencies to compare">
-          <Button disabled={!selectedCurrency1 || !selectedCurrency2} onClick={compareCurrencies}>
-            Compare
-          </Button>
-        </Tooltip>
       </div>
     </>
   );
