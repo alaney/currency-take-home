@@ -7,7 +7,7 @@ interface NavbarContainerProps {
 
 const NavbarContainer: React.FC<PropsWithChildren<NavbarContainerProps>> = ({ children, className }) => {
   return (
-    <Flex align="center" justify={{ base: "space-around", lg: "space-between" }} className={className}>
+    <Flex align="center" justify={{ base: "flex-start", md: "space-between" }} className={className}>
       {children}
     </Flex>
   );

@@ -33,7 +33,7 @@ export default function Home() {
         <Navbar />
       </nav>
       <main>
-        <Container w={500}>
+        <Container maxWidth={500}>
           <CurrencyContainer />
         </Container>
       </main>

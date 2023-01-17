@@ -7,8 +7,13 @@ interface LogoutButtonProps extends ButtonProps {}
 const LogoutButton: React.FC<LogoutButtonProps> = (props) => {
   const store = useAppStore();
 
+  const logout = () => {
+    localStorage.removeItem("username");
+    store.logout();
+  };
+
   return (
-    <Button data-cy="logout" onClick={() => store.logout()} {...props}>
+    <Button data-cy="logout" onClick={logout} {...props}>
       Logout
     </Button>
   );

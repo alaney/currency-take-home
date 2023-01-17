@@ -59,8 +59,8 @@ const CompareCurrencies: React.FC<SelectedCurrenciesProps> = ({ selectedCurrency
   };
 
   return (
-    <Container w="100%">
-      <Box borderWidth="1px" borderRadius="lg" bg="gray" w="100%" p={4} color="white">
+    <Container mt={2}>
+      <Box borderWidth="1px" borderRadius="lg" bg="gray" p={4} color="white">
         {!selectedCurrency1 && !selectedCurrency2 ? (
           <Text>Start selecting currencies to compare...</Text>
         ) : (
