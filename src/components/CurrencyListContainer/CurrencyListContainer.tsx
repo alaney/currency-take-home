@@ -22,6 +22,7 @@ const CurrencyListContainer: React.FC<PropsWithChildren<CurrencyListContainerPro
   const [selectedCurrency2, setSelectedCurrency2] = useState<Currency | null>(null);
   const { currencyCodeQueryParam1, currencyCodeQueryParam2 } = useCurrencyCodeQueryParameters();
 
+  // Filter currencies when the store.filter is updated
   useEffect(() => {
     if (store.filter) {
       const filteredCurrencies = currencies.filter(
@@ -36,6 +37,8 @@ const CurrencyListContainer: React.FC<PropsWithChildren<CurrencyListContainerPro
     }
   }, [store.filter, currencies]);
 
+  // Load selected currencies from the URL. This allows "linking" to a comparison.
+  // I believe this is causing an extra rerender. Not sure how to fix it ATM.
   useEffect(() => {
     if (currencyCodeQueryParam1 && currencyCodeQueryParam2) {
       const currency1 = currencies.find((c) => c.code === currencyCodeQueryParam1);
@@ -48,6 +51,7 @@ const CurrencyListContainer: React.FC<PropsWithChildren<CurrencyListContainerPro
     }
   }, [currencies, currencyCodeQueryParam1, currencyCodeQueryParam2]);
 
+  // Update the page
   useEffect(() => {
     const start = (page - 1) * pageSize;
     const end = start + pageSize;
