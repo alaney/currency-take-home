@@ -9,7 +9,7 @@ interface CurrencyListItemProps {
   selected: boolean;
 }
 
-const CurrencyListItem: React.FC<CurrencyListItemProps> = ({ currency, className, onClick, selected }) => {
+const CurrencyListItem: React.FC<CurrencyListItemProps> = ({ currency, className, onClick }) => {
   return (
     <div className={className} onClick={() => onClick(currency)}>
       <Text>{currency.name || currency.code}</Text>

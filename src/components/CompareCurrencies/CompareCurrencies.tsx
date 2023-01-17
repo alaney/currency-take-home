@@ -60,7 +60,7 @@ const CompareCurrencies: React.FC<SelectedCurrenciesProps> = ({ selectedCurrency
 
   return (
     <Container w="100%">
-      <Box bg="tomato" w="100%" p={4} color="white">
+      <Box borderWidth="1px" borderRadius="lg" bg="gray" w="100%" p={4} color="white">
         {!selectedCurrency1 && !selectedCurrency2 ? (
           <Text>Start selecting currencies to compare...</Text>
         ) : (
@@ -75,10 +75,10 @@ const CompareCurrencies: React.FC<SelectedCurrenciesProps> = ({ selectedCurrency
                 <StatNumber>{currencyValue || ""}</StatNumber>
               </Stat>
             </StatGroup>
-            <Center flexBasis="50">
+            <Center>
               <Tooltip isDisabled={!!(selectedCurrency1 && selectedCurrency2)} label="Select 2 currencies to compare">
                 <Button
-                  colorScheme="teal"
+                  colorScheme="blue"
                   size="sm"
                   disabled={!selectedCurrency1 || !selectedCurrency2}
                   onClick={compareCurrencies}

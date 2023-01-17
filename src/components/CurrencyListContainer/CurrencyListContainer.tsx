@@ -6,6 +6,7 @@ import React, { PropsWithChildren, useEffect, useState } from "react";
 import StyledCurrencyList from "../CurrencyList/CurrencyList.css";
 import CompareCurrencies from "../CompareCurrencies/CompareCurrencies";
 import { useCurrencyCodeQueryParameters } from "@/hooks/useCurrencyCodeQueryParameter";
+import CurrencyListHeader from "../CurrencyList/CurrencyListHeader";
 
 interface CurrencyListContainerProps {
   currencies: Currency[];
@@ -80,12 +81,17 @@ const CurrencyListContainer: React.FC<PropsWithChildren<CurrencyListContainerPro
   return (
     <>
       <CompareCurrencies selectedCurrency1={selectedCurrency1} selectedCurrency2={selectedCurrency2} />
+      <CurrencyListHeader
+        selectedCurrency1={selectedCurrency1}
+        selectedCurrency2={selectedCurrency2}
+        onClearSelectionsClicked={clearSelections}
+      />
+      <hr />
       <StyledCurrencyList
         currencies={pageOfCurrencies}
         onCurrencyClicked={onCurrencyClicked}
         selectedCurrency1={selectedCurrency1}
         selectedCurrency2={selectedCurrency2}
-        onClearSelectionsClicked={clearSelections}
       />
       <div data-cy="pager">
         <Button mr={4} onClick={onPrevClick} disabled={page === 1}>
