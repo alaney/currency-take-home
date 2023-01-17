@@ -26,6 +26,10 @@ const CompareCurrencies: React.FC<SelectedCurrenciesProps> = ({ selectedCurrency
   const { currencyCodeQueryParam1, currencyCodeQueryParam2 } = useCurrencyCodeQueryParameters();
 
   useEffect(() => {
+    setCurrencyValue(null);
+  }, [selectedCurrency1, selectedCurrency2]);
+
+  useEffect(() => {
     const compareFromURL = async () => {
       if (currencyCodeQueryParam1 && currencyCodeQueryParam2) {
         const comparison = await fetchComparison(currencyCodeQueryParam1, currencyCodeQueryParam2);

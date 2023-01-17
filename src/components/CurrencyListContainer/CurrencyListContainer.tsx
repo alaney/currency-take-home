@@ -72,6 +72,11 @@ const CurrencyListContainer: React.FC<PropsWithChildren<CurrencyListContainerPro
     }
   };
 
+  const clearSelections = () => {
+    setSelectedCurrency1(null);
+    setSelectedCurrency2(null);
+    router.push("/");
+  };
   return (
     <>
       <CompareCurrencies selectedCurrency1={selectedCurrency1} selectedCurrency2={selectedCurrency2} />
@@ -80,6 +85,7 @@ const CurrencyListContainer: React.FC<PropsWithChildren<CurrencyListContainerPro
         onCurrencyClicked={onCurrencyClicked}
         selectedCurrency1={selectedCurrency1}
         selectedCurrency2={selectedCurrency2}
+        onClearSelectionsClicked={clearSelections}
       />
       <div data-cy="pager">
         <Button mr={4} onClick={onPrevClick} disabled={page === 1}>

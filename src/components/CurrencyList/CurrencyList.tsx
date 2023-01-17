@@ -1,5 +1,6 @@
 import { Currency } from "@/types";
-import { Heading } from "@chakra-ui/react";
+import { CloseIcon } from "@chakra-ui/icons";
+import { Center, Flex, Heading, IconButton, Tooltip } from "@chakra-ui/react";
 import React from "react";
 import StyledCurrencyListItem from "../CurrencyListItem/CurrencyListItem.css";
 
@@ -9,6 +10,7 @@ interface CurrencyListProps {
   onCurrencyClicked: (currency: Currency) => void;
   selectedCurrency1: Currency | null;
   selectedCurrency2: Currency | null;
+  onClearSelectionsClicked: () => void;
 }
 
 const CurrencyList: React.FC<CurrencyListProps> = ({
@@ -17,12 +19,28 @@ const CurrencyList: React.FC<CurrencyListProps> = ({
   onCurrencyClicked,
   selectedCurrency1,
   selectedCurrency2,
+  onClearSelectionsClicked,
 }) => {
   return (
     <>
-      <Heading as="h3" size="md" mt={2}>
-        Currencies
-      </Heading>
+      <Flex justify="space-between">
+        <Heading as="h3" size="md" mt={2}>
+          Currencies
+        </Heading>
+        {selectedCurrency1 || selectedCurrency2 ? (
+          <Center>
+            <Tooltip label="Clear selections">
+              <IconButton
+                onClick={onClearSelectionsClicked}
+                colorScheme="red"
+                aria-label="Clear selections"
+                size="xs"
+                icon={<CloseIcon />}
+              />
+            </Tooltip>
+          </Center>
+        ) : null}
+      </Flex>
       <hr />
       <div data-cy="currency-list" className={className}>
         {currencies.map((c) => (

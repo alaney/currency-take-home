@@ -17,6 +17,7 @@ const CurrencyContainer: React.FC<CurrencyContainerProps> = () => {
 
     setupCurrencies();
   }, []);
+
   return (
     <>
       <CurrencyListContainer currencies={currencies} />
